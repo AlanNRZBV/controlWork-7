@@ -6,7 +6,7 @@ const MenuItem: FC<IMenuItem> = ({ name, price, type, onItemClick }) => {
 
   const menuItemBgStyles: string[] = ['bg-info bg-gradient bg-opacity-10', 'bg-warning bg-gradient bg-opacity-10'];
 
-  let variableIcon = '';
+  let variableIcon: string;
   let variableMenuBg = 'card mb-3 ';
 
   if (type === 'drink') {
