@@ -8,7 +8,8 @@ export interface IMenuItem {
 }
 
 export interface IOrderItem extends IMenuItem{
-  quantity: number
+  quantity: number,
+  type?: string
 }
 
 export interface IMessage {
