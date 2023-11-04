@@ -26,3 +26,8 @@ export interface IButton {
   onClick: () => void;
   style?: string;
 }
+export interface IPanel extends React.PropsWithChildren {
+  title: string;
+  style: string;
+  children: React.ReactNode;
+}

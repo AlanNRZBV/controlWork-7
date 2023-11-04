@@ -5,6 +5,7 @@ import '../../styles/material-icons/icons.css';
 import Message from '../../components/Message/Message.tsx';
 import OrderItem from '../../components/OrderItem/OrderItem.tsx';
 import Bill from '../../components/Bill/Bill.tsx';
+import Panel from '../../components/Panel/Panel.tsx';
 
 const App = () => {
   const [orders, setOrders] = useState<IOrderItem[]>([]);
@@ -78,7 +79,7 @@ const App = () => {
   return (
     <div className="container">
       <div className="row mt-5 flex-nowrap">
-        <div className="col border border-1 me-2 d-flex py-3">
+        <Panel title="Orders" style="col border border-1 me-2 d-flex flex-column py-3">
           {orders.length === 0 ? (
             <Message text={noOrdersMsg} />
           ) : (
@@ -95,8 +96,8 @@ const App = () => {
               <Bill total={getTotal()} />
             </div>
           )}
-        </div>
-        <div className="col border border-1 ms-2 pt-3">
+        </Panel>
+        <Panel title="Menu" style="col border border-1 ms-2 pt-3">
           {menuItems.map((item, index) => (
             <MenuItem
               key={index}
@@ -106,7 +107,7 @@ const App = () => {
               onItemClick={() => addOrderItem(item.name, item.price)}
             />
           ))}
-        </div>
+        </Panel>
       </div>
     </div>
   );
