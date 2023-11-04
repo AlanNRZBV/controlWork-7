@@ -27,7 +27,7 @@ export interface IButton {
   style?: string;
 }
 export interface IPanel extends React.PropsWithChildren {
-  title: string;
+  title?: string;
   style: string;
   children: React.ReactNode;
 }

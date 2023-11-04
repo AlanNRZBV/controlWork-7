@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { IPanel } from '../../types';
 
 const Panel: FC<IPanel> = ({ title, children, style }) => {
-  const defaultStyle = 'text-center ' + style;
+  const defaultStyle = 'text-center rounded rounded-3 shadow ' + style;
 
   return (
     <div className={defaultStyle}>

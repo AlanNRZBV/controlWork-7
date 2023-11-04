@@ -93,6 +93,7 @@ const App = () => {
                   onChangeQuant={changeQuant}
                 />
               ))}
+              <hr/>
               <Bill total={getTotal()} />
             </div>
           )}
