@@ -10,3 +10,7 @@ export interface IMenuItem {
 export interface IOrderItem extends IMenuItem{
   quantity: number
 }
+
+export interface IMessage {
+  text: string
+}
