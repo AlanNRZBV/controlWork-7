@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { IMenuItem } from '../../types';
 
-const MenuItem: FC<IMenuItem> = ({ name, price, type }) => {
+const MenuItem: FC<IMenuItem> = ({ name, price, type, onItemClick }) => {
 
   const iconsArray: string[] =[
     'restaurant', 'water_medium'
@@ -16,11 +16,11 @@ const MenuItem: FC<IMenuItem> = ({ name, price, type }) => {
   }
 
   return (
-    <div className="card">
+    <div onClick={onItemClick} className="card">
       <div className="card-body">
         <span className="material-symbols-outlined">{variableIcon}</span>
         <span>{name}</span>
-        <span>{price}</span>
+        <span>Price: {price}</span>
       </div>
     </div>
   );
