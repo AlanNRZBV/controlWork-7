@@ -10,6 +10,7 @@ export interface IMenuItem {
 export interface IOrderItem extends IMenuItem{
   quantity: number,
   type?: string
+  onChangeQuant?: (name: string, behavior: boolean, reset: boolean) => void;
 }
 
 export interface IMessage {
@@ -18,4 +19,10 @@ export interface IMessage {
 
 export interface IBill {
   total: number
+}
+
+export interface IButton {
+  innerText?: string;
+  onClick: () => void;
+  style?: string;
 }

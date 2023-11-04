@@ -22,7 +22,9 @@ const App = () => {
     const ordersCopy = [...orders];
     const isAdded = ordersCopy.findIndex((order) => order.name === name);
     if (isAdded !== -1) {
-      ordersCopy[isAdded].quantity += 1;
+      const orderCopy = {...ordersCopy[isAdded]}
+      orderCopy.quantity += 1;
+      ordersCopy[isAdded] = orderCopy;
       setOrders(ordersCopy);
     } else {
       const currentItem = {
@@ -33,8 +35,33 @@ const App = () => {
       ordersCopy.push(currentItem);
       setOrders(ordersCopy);
     }
-
   };
+
+  const changeQuant = (name:string ,behavior: boolean, reset: boolean)=>{
+    const ordersCopy = [...orders];
+    const isAdded = ordersCopy.findIndex((order) => order.name === name);
+    if (reset){
+      ordersCopy.splice(isAdded, 1)
+    }else{
+      if (isAdded !== -1){
+        const orderCopy = {...ordersCopy[isAdded]}
+        if (behavior){
+          orderCopy.quantity += 1;
+          ordersCopy[isAdded] = orderCopy;
+          setOrders(ordersCopy);
+        }else{
+          if (orderCopy.quantity > 0) {
+            orderCopy.quantity -= 1;
+            ordersCopy[isAdded] = orderCopy;
+            if (orderCopy.quantity === 0) {
+              ordersCopy.splice(isAdded, 1)
+            }
+          }
+        }
+      }
+    }
+    setOrders(ordersCopy);
+  }
 
   const getTotal = () => {
     let total = 0;
@@ -57,7 +84,7 @@ const App = () => {
           ) : (
             <div className="d-flex flex-column flex-grow-1">
               {orders.map((item, index) => (
-                <OrderItem key={index} quantity={item.quantity} name={item.name} price={item.price} />
+                <OrderItem key={index} quantity={item.quantity} name={item.name} price={item.price}  onChangeQuant={changeQuant}/>
               ))}
               <Bill total={getTotal()} />
             </div>
