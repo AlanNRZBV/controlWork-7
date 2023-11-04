@@ -4,6 +4,7 @@ import MenuItem from '../../components/MenuItem/MenuItem.tsx';
 import '../../styles/material-icons/icons.css';
 import Message from '../../components/Message/Message.tsx';
 import OrderItem from '../../components/OrderItem/OrderItem.tsx';
+import Bill from '../../components/Bill/Bill.tsx';
 
 const App = () => {
   const [orders, setOrders] = useState<IOrderItem[]>([]);
@@ -17,16 +18,32 @@ const App = () => {
     { name: 'Cola', price: 40, type: 'drink' },
   ];
 
-  const addOrderItem = (index: number, name: string, price: number) => {
-    console.log(index, name, price, 'test');
-    const ordersCopy = [...orders]
-    const currentItem = {
-      name: name,
-      price: price,
-      quantity: 1
+  const addOrderItem = ( name: string, price: number) => {
+    const ordersCopy = [...orders];
+    const isAdded = ordersCopy.findIndex((order) => order.name === name);
+    if (isAdded !== -1) {
+      ordersCopy[isAdded].quantity += 1;
+      setOrders(ordersCopy);
+    } else {
+      const currentItem = {
+        name: name,
+        price: price,
+        quantity: 1,
+      };
+      ordersCopy.push(currentItem);
+      setOrders(ordersCopy);
     }
-    ordersCopy.push(currentItem)
-    setOrders(ordersCopy)
+
+  };
+
+  const getTotal = () => {
+    let total = 0;
+
+    for (let i = 0; i < orders.length; i++) {
+      total += orders[i].price * orders[i].quantity;
+    }
+
+    return total;
   };
 
   const noOrdersMsg = 'Orders is empty!';
@@ -34,14 +51,17 @@ const App = () => {
   return (
     <div className="container">
       <div className="row mt-5">
-        <div className="col border border-1 me-2">
-          {orders.length === 0 ? <Message text={noOrdersMsg} />
-            :
-            <div>
-              {orders.map((item, index)=>(
-                <OrderItem key={index} quantity={1} name={item.name} price={item.price}/>
+        <div className="col border border-1 me-2 d-flex">
+          {orders.length === 0 ? (
+            <Message text={noOrdersMsg} />
+          ) : (
+            <div className="d-flex flex-column flex-grow-1">
+              {orders.map((item, index) => (
+                <OrderItem key={index} quantity={item.quantity} name={item.name} price={item.price} />
               ))}
-            </div>}
+              <Bill total={getTotal()} />
+            </div>
+          )}
         </div>
         <div className="col border border-1 ms-2">
           {menuItems.map((item, index) => (
@@ -50,7 +70,7 @@ const App = () => {
               name={item.name}
               price={item.price}
               type={item.type}
-              onItemClick={() => addOrderItem(index, item.name, item.price)}
+              onItemClick={() => addOrderItem( item.name, item.price)}
             />
           ))}
         </div>

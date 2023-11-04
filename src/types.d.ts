@@ -15,3 +15,7 @@ export interface IOrderItem extends IMenuItem{
 export interface IMessage {
   text: string
 }
+
+export interface IBill {
+  total: number
+}
